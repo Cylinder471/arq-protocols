@@ -17,6 +17,8 @@ MAX_SEQ_NO = GBN_WINDOW_SIZE
 # Corruption probability
 LOSS_PROB = 0.1
 
+# Timeout in ms
+ACK_WAIT_TIME = 8000
 
 class Packet:
 

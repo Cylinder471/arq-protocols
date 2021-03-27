@@ -31,9 +31,6 @@ pbuffer = deque([], maxlen=packet.GBN_WINDOW_SIZE)
 S_base, S_next = 0, 0
 message, msglen = "", 0
 
-# Time to wait for an acknowledgement (in ms)
-ACK_WAIT_TIME = 15000
-
 def is_valid_ackno(ack_no):
 
     # Obvious check
@@ -79,7 +76,7 @@ def sender():
 
             # Start timer
             if not timer.is_running():
-                timer.start(ACK_WAIT_TIME)
+                timer.start(packet.ACK_WAIT_TIME)
             next_msg_index += 1
 
             sleep(0.2)
@@ -114,9 +111,9 @@ def sender():
         # Resend all outstanding packets if timeout occurs:
         if timer.has_timeout_occured():
             for p in pbuffer:
-                logger.error("[TIMEOUT: Resending %s." % p)
+                logger.error("[TIMEOUT]: Resending %s." % p)
                 packet.send_packet(client, p)
-            timer.start(ACK_WAIT_TIME)
+            timer.start(packet.ACK_WAIT_TIME)
 
         # Check if buffer is empty and next_msg_index exceeds message length (terminating condition)
         if len(pbuffer) == 0 and next_msg_index >= msglen:
@@ -133,9 +130,9 @@ def sender():
 
 if __name__ == "__main__":
 
-    message = input("Enter a message to transmit: ")
-    msglen = len(message)
-    logger.info("Waiting for connection.")
+    # message = input("Enter a message to transmit: ")
+    # msglen = len(message)
+    # logger.info("Waiting for connection.")
 
     # Create socket instance
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -151,7 +148,10 @@ if __name__ == "__main__":
         packet.LOSS_PROB = float(sys.argv[3])
         packet.GBN_WINDOW_SIZE = (2 ** packet.SEQ_NO_BIT_WIDTH) - 1
         packet.MAX_SEQ_NO = packet.GBN_WINDOW_SIZE
-
+        packet.ACK_WAIT_TIME = int(sys.argv[4])
+        message = sys.argv[5]
+        msglen = len(message)
+    
     sender()
     sock.close()
     client.close()
