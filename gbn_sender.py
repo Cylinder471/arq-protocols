@@ -47,8 +47,12 @@ def is_valid_ackno(ack_no):
 
 
 def sender():
+
+    global pbuffer
+    pbuffer = deque([], maxlen=packet.GBN_WINDOW_SIZE)
+
     # For use in is_valid_ackno()
-    global S_next, S_base, pbuffer
+    global S_next, S_base
 
     # Create instance of Timer class
     timer = Timer()

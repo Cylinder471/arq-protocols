@@ -20,9 +20,6 @@ sock = None
 # R_next is the sequence number of expected frame in receiver window
 R_next = 0
 
-# Same pbuffer format as in sr_sender
-pbuffer = [None] * packet.SRP_WINDOW_SIZE
-
 # To track ACK and NACk
 nack_sent, ack_needed = False, False
 
@@ -50,10 +47,13 @@ def is_valid_seqno(seqno):
 
 
 def receiver():
+
+    # Same pbuffer format as in sr_sender
+    pbuffer = [None] * packet.SRP_WINDOW_SIZE
+
     global nack_sent, ack_needed, R_next
     while True:
         pkt = packet.recv_packet(sock)
-        # print('--received %s', pkt)
 
         # EOF
         if pkt.seq_no == -1:

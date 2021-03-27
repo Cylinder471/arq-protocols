@@ -137,6 +137,11 @@ def handle_recvd_pkt(pkt_recvd):
 
 def sender():
 
+    global pbuffer, timers
+
+    pbuffer = [None] * packet.SRP_WINDOW_SIZE
+    timers = [None] * packet.SRP_WINDOW_SIZE
+
     global outsd_frames, S_next, next_msg_char
 
     while True:
