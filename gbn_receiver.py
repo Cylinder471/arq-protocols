@@ -13,7 +13,6 @@ logger = logging.getLogger(__name__)
 coloredlogs.install(level="DEBUG", fmt="%(asctime)s - %(message)s", datefmt="%H:%M:%S")
 
 
-
 def receiver():
     print(packet.SEQ_NO_BIT_WIDTH, packet.LOSS_PROB)
     expected_seq_no = 0
@@ -62,7 +61,6 @@ def receiver():
     logger.success('Transfer complete. Data received = "%s"' % "".join(data_recvd))
 
 
-
 if __name__ == "__main__":
 
     # Socket for listening for incoming connections
@@ -76,6 +74,15 @@ if __name__ == "__main__":
         packet.LOSS_PROB = float(sys.argv[3])
         packet.GBN_WINDOW_SIZE = (2 ** packet.SEQ_NO_BIT_WIDTH) - 1
         packet.MAX_SEQ_NO = packet.GBN_WINDOW_SIZE
+
+    logger.verbose(
+        "SEQ_NO_BIT_WIDTH: {0}, LOSS_PROB: {1}, GBN_WINDOW_SIZE: {2}, MAX_SEQ_NO: {3}".format(
+            packet.SEQ_NO_BIT_WIDTH,
+            packet.LOSS_PROB,
+            packet.GBN_WINDOW_SIZE,
+            packet.MAX_SEQ_NO,
+        )
+    )
 
     receiver()
     sock.close()

@@ -24,13 +24,14 @@ sock = None
 # A double ended queue is better for pbuffer
 pbuffer = deque([], maxlen=packet.GBN_WINDOW_SIZE)
 
-# S_base is the start of reqion where packets are sent but not ACK'ed yet
-# S_next is the start of reqion which can be sent
+# S_base is the start of region where packets are sent but not ACK'ed yet
+# S_next is the start of region which can be sent
 # Both S_base and S_next lie inside the window
 
 S_base, S_next = 0, 0
 message, msglen = "", 0
 
+# Check if received ACK is the ack expected
 def is_valid_ackno(ack_no):
 
     # Obvious check
@@ -105,7 +106,7 @@ def sender():
                     ("[ACK]: Ack received %s. Packets (%s) " + "are acknowledged.")
                     % (resp, ",".join(tmp))
                 )
-                
+
         sleep(0.2)
 
         # Resend all outstanding packets if timeout occurs:
@@ -151,7 +152,18 @@ if __name__ == "__main__":
         packet.ACK_WAIT_TIME = int(sys.argv[4])
         message = sys.argv[5]
         msglen = len(message)
-    
+
+    logger.verbose(
+        "SEQ_NO_BIT_WIDTH: {0}, LOSS_PROB: {1}, GBN_WINDOW_SIZE: {2}, MAX_SEQ_NO: {3}, ACK_WAIT_TIME: {4}, MESSAGE: {5}".format(
+            packet.SEQ_NO_BIT_WIDTH,
+            packet.LOSS_PROB,
+            packet.GBN_WINDOW_SIZE,
+            packet.MAX_SEQ_NO,
+            packet.ACK_WAIT_TIME,
+            message,
+        )
+    )
+
     sender()
     sock.close()
     client.close()
