@@ -47,8 +47,6 @@ def is_valid_ackno(ack_no):
 
 
 def sender():
-
-    print(packet.SEQ_NO_BIT_WIDTH, packet.LOSS_PROB)
     # For use in is_valid_ackno()
     global S_next, S_base, pbuffer
 

@@ -14,7 +14,6 @@ coloredlogs.install(level="DEBUG", fmt="%(asctime)s - %(message)s", datefmt="%H:
 
 
 def receiver():
-    print(packet.SEQ_NO_BIT_WIDTH, packet.LOSS_PROB)
     expected_seq_no = 0
 
     # To store received message
