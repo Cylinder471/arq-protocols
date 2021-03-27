@@ -131,10 +131,6 @@ def sender():
 
 if __name__ == "__main__":
 
-    # message = input("Enter a message to transmit: ")
-    # msglen = len(message)
-    # logger.info("Waiting for connection.")
-
     # Create socket instance
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.bind(("", 3300 if len(sys.argv) <= 1 else int(sys.argv[1])))
