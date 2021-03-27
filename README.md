@@ -15,8 +15,8 @@ This repository contains implementation of 3 protocols:
 3. Run sender and receiver in seperate tabs/windows.
 4. The command line arguments are as follows:
    1. **Stop and Wait ARQ**<br>Sender: ```python3 sw_sender.py <PORT> <LOSS_PROB> <ACK_TIMEOUT> <MESSAGE>```</br>Receiver: ```python3 sw_receiver.py <PORT> <LOSS_PROB>```</br>
-   2. **Go Back N ARQ**<br>Sender: ```python3 gbn_sender.py <PORT> <LOSS_PROB> <SEQ_NO_BIT_WIDTH> <ACK_TIMEOUT> <MESSAGE>```</br>Receiver: ```python3 gbn_receiver.py <PORT> <SEQ_NO_BIT_WIDTH> <LOSS_PROB>```</br>
-   3. **Selective Repeat ARQ**<br>Sender: ```python3 sr_sender.py <PORT> <LOSS_PROB> <SEQ_NO_BIT_WIDTH> <ACK_TIMEOUT> <MESSAGE>```</br>Receiver: ```python3 sr_receiver.py <PORT> <SEQ_NO_BIT_WIDTH> <LOSS_PROB>```</br>
+   2. **Go Back N ARQ**<br>Sender: ```python3 gbn_sender.py <PORT> <SEQ_NO_BIT_WIDTH> <LOSS_PROB> <ACK_TIMEOUT> <MESSAGE>```</br>Receiver: ```python3 gbn_receiver.py <PORT> <SEQ_NO_BIT_WIDTH> <LOSS_PROB>```</br>
+   3. **Selective Repeat ARQ**<br>Sender: ```python3 sr_sender.py <PORT> <SEQ_NO_BIT_WIDTH> <LOSS_PROB>  <ACK_TIMEOUT> <MESSAGE>```</br>Receiver: ```python3 sr_receiver.py <PORT> <SEQ_NO_BIT_WIDTH> <LOSS_PROB>```</br>
 
 ### Additional Notes
 
