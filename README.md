@@ -24,6 +24,11 @@ This repository contains implementation of 3 protocols:
 - ```ACK_TIMEOUT``` is in milliseconds.
 - The window length for Go Back N and Selective Repeat ARQ is calculated as ```(2 ** SEQ_NO_BIT_WIDTH) - 1``` and ```2 ** (SEQ_NO_BIT_WIDTH - 1)``` respectively
 
+### Additional Notes (Ubuntu)
+
+- Added single script to run all files. Use ```./arq.sh -h``` for help.
+- If you use bash (default), change ```-- zsh``` to ```-- bash``` in lines 71, 74, 77. If you use any other terminal, make appropriate changes
+
 ### Examples
 
 Stop and Wait ARQ
