@@ -74,7 +74,7 @@ if [ "$TYPE" != "" ]; then
    		gnome-terminal --window --geometry 80x24+150+300 -- zsh -c "python gbn_sender.py $PORT $SEQ_NO_BIT_WIDTH $PACKET_LOSS_PROB $TIMEOUT $MESSAGE && read" && gnome-terminal --window --geometry 80x24+1000+300 -- zsh -c "python gbn_receiver.py $PORT $SEQ_NO_BIT_WIDTH $PACKET_LOSS_PROB && read"
     	elif [ "$TYPE" = "sw" ]; then
     		echo "\nInitiating...\nPort: $PORT \nSequence bit width: $SEQ_NO_BIT_WIDTH \nPacket Loss Probability: $PACKET_LOSS_PROB \nTimeout: $TIMEOUT\nType: Stop and Wait"
- 		# To be filled
+ 		gnome-terminal --window --geometry 80x24+150+300 -- zsh -c "python sw_sender.py $PORT $PACKET_LOSS_PROB $TIMEOUT $MESSAGE && read" && gnome-terminal --window --geometry 80x24+1000+300 -- zsh -c "python sw_receiver.py $PORT $PACKET_LOSS_PROB && read"
     	else
     		echo "Unknown type: $TYPE"
     		HELP
