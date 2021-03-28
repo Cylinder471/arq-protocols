@@ -195,7 +195,7 @@ def sender():
 
 if __name__ == "__main__":
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.bind(("", 3300 if len(sys.argv) <= 1 else int(sys.argv[1])))
+    sock.bind((socket.gethostname(), 3300 if len(sys.argv) <= 1 else int(sys.argv[1])))
     sock.listen(5)
 
     client, addr = sock.accept()

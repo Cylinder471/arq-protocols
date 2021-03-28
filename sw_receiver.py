@@ -52,7 +52,7 @@ if __name__ == "__main__":
 
     # Socket for listening for incoming connections
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.connect(("", 3300 if len(sys.argv) <= 1 else int(sys.argv[1])))
+    sock.connect((socket.gethostname(), 3300 if len(sys.argv) <= 1 else int(sys.argv[1])))
 
     # Set vars if given (Default set in packet module)
     if len(sys.argv) >= 3:
