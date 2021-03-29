@@ -27,7 +27,7 @@ This repository contains implementation of 3 protocols:
 ### Additional Notes (Ubuntu)
 
 - Added single script to run all files. Use ```./arq.sh -h``` for help.
-- If you use bash (default), change ```-- zsh``` to ```-- bash``` in lines 71, 74, 77. If you use any other terminal, make appropriate changes
+- If you use zsh, change ```-- bash``` to ```-- zsh``` in lines 71, 74, 77. If you use any other terminal, make appropriate changes
 
 ### Examples
 

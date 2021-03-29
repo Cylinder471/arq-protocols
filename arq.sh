@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 # author: vigneshdesmond
 # date: 25/03/2021
  
@@ -32,7 +32,7 @@ TIMEOUT=8000
 
 while getopts a:p:s:l:t:m:h FLAG; do
   case $FLAG in
-	a)
+    a)
       TYPE=$OPTARG
       ;;
     p)
@@ -67,14 +67,14 @@ fi
 
 if [ "$TYPE" != "" ]; then
 	if [ "$TYPE" = "sr" ]; then
-    		echo "\nInitiating...\nPort: $PORT \nSequence bit width: $SEQ_NO_BIT_WIDTH \nPacket Loss Probability: $PACKET_LOSS_PROB \nTimeout: $TIMEOUT\nType: Selective repeat"
-   		gnome-terminal --window --geometry 80x24+150+300 -- zsh -c "python sr_sender.py $PORT $SEQ_NO_BIT_WIDTH $PACKET_LOSS_PROB $TIMEOUT $MESSAGE && read" && gnome-terminal --window --geometry 80x24+1000+300 -- zsh -c "python sr_receiver.py $PORT $SEQ_NO_BIT_WIDTH $PACKET_LOSS_PROB && read"
+    		printf "Initiating...\nPort: $PORT \nSequence bit width: $SEQ_NO_BIT_WIDTH \nPacket Loss Probability: $PACKET_LOSS_PROB \nTimeout: $TIMEOUT\nType: Selective repeat"
+   		gnome-terminal --window --geometry 80x24+150+300 -- bash -c "python3 sr_sender.py $PORT $SEQ_NO_BIT_WIDTH $PACKET_LOSS_PROB $TIMEOUT $MESSAGE && read" && gnome-terminal --window --geometry 80x24+1000+300 -- bash -c "python3 sr_receiver.py $PORT $SEQ_NO_BIT_WIDTH $PACKET_LOSS_PROB && read"
     	elif [ "$TYPE" = "gb" ]; then
-    		echo "\nInitiating...\nPort: $PORT \nSequence bit width: $SEQ_NO_BIT_WIDTH \nPacket Loss Probability: $PACKET_LOSS_PROB \nTimeout: $TIMEOUT\nType: Go Back N"
-   		gnome-terminal --window --geometry 80x24+150+300 -- zsh -c "python gbn_sender.py $PORT $SEQ_NO_BIT_WIDTH $PACKET_LOSS_PROB $TIMEOUT $MESSAGE && read" && gnome-terminal --window --geometry 80x24+1000+300 -- zsh -c "python gbn_receiver.py $PORT $SEQ_NO_BIT_WIDTH $PACKET_LOSS_PROB && read"
+    		printf "\nInitiating...\nPort: $PORT \nSequence bit width: $SEQ_NO_BIT_WIDTH \nPacket Loss Probability: $PACKET_LOSS_PROB \nTimeout: $TIMEOUT\nType: Go Back N"
+   		gnome-terminal --window --geometry 80x24+150+300 -- bash -c "python3 gbn_sender.py $PORT $SEQ_NO_BIT_WIDTH $PACKET_LOSS_PROB $TIMEOUT $MESSAGE && read" && gnome-terminal --window --geometry 80x24+1000+300 -- bash -c "python3 gbn_receiver.py $PORT $SEQ_NO_BIT_WIDTH $PACKET_LOSS_PROB && read"
     	elif [ "$TYPE" = "sw" ]; then
-    		echo "\nInitiating...\nPort: $PORT \nSequence bit width: $SEQ_NO_BIT_WIDTH \nPacket Loss Probability: $PACKET_LOSS_PROB \nTimeout: $TIMEOUT\nType: Stop and Wait"
- 		gnome-terminal --window --geometry 80x24+150+300 -- zsh -c "python sw_sender.py $PORT $PACKET_LOSS_PROB $TIMEOUT $MESSAGE && read" && gnome-terminal --window --geometry 80x24+1000+300 -- zsh -c "python sw_receiver.py $PORT $PACKET_LOSS_PROB && read"
+    		printf "\nInitiating...\nPort: $PORT \nSequence bit width: $SEQ_NO_BIT_WIDTH \nPacket Loss Probability: $PACKET_LOSS_PROB \nTimeout: $TIMEOUT\nType: Stop and Wait"
+ 		gnome-terminal --window --geometry 80x24+150+300 -- bash -c "python3 sw_sender.py $PORT $PACKET_LOSS_PROB $TIMEOUT $MESSAGE && read" && gnome-terminal --window --geometry 80x24+1000+300 -- bash -c "python3 sw_receiver.py $PORT $PACKET_LOSS_PROB && read"
     	else
     		echo "Unknown type: $TYPE"
     		HELP
