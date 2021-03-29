@@ -23,10 +23,10 @@ def sender():
         # Create packet
         pkt = packet.Packet(next_seq_no, ptype=packet.Packet.TYPE_DATA, data=char)
         logger.info("[SEND]: Sending %s." % pkt)
-        
+
         # Send packet
         packet.send_packet(client, pkt)
-        next_seq_no += 1
+        next_seq_no = (next_seq_no + 1) % 2
         ack = packet.recv_packet(client, timeout=packet.ACK_WAIT_TIME/1000)
         
         # Check if packet is corrupt or not the expected one
@@ -39,7 +39,7 @@ def sender():
             if ack is None:
                 logger.error("[TIMEOUT]: Sending %s again" % pkt)
             elif ack.is_corrupt():
-                logger.error("[ERR]: ACK packet is corrupted")
+                logger.error("[ERR]: ACK not received.")
                 logger.info("Sending %s again." % pkt)
             
             packet.send_packet(client, pkt)
