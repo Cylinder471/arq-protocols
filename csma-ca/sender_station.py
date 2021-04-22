@@ -1,7 +1,7 @@
 import socket
 import sys
 import time
-
+import random
 import logging
 import verboselogs
 import coloredlogs
@@ -9,6 +9,7 @@ import coloredlogs
 import frame
 
 IFS_TIME = 5000
+MAK_K = 3
 
 # Configure logging
 verboselogs.install()
@@ -17,7 +18,7 @@ coloredlogs.install(level="DEBUG", fmt="%(asctime)s - %(message)s", datefmt="%H:
 
 def carrier_sense():
     check_pkt = frame.Frame(0, ftype= frame.Frame.TYPE_CHANNEL_REQ)
-    logger.info("[CHECK]: Sensing carrier")
+    logger.notice("[CHECK]: Sensing carrier")
     frame.send_frame(client, check_pkt)
     sense = frame.recv_frame(client, timeout= frame.ACK_WAIT_TIME/1000)
     if sense.seq_no == -2:
@@ -26,10 +27,10 @@ def carrier_sense():
         carrier_sense()
     else:
         # FREE
-        logger.info("[WAIT]: Waiting IFS time")
+        logger.notice("[WAIT]: Waiting IFS time")
         time.sleep(IFS_TIME/1000)
         check_pkt = frame.Frame(0, ftype= frame.Frame.TYPE_CHANNEL_REQ)
-        logger.info("[CHECK]: Sensing carrier")
+        logger.notice("[CHECK]: Sensing carrier")
         frame.send_frame(client, check_pkt)
         sense = frame.recv_frame(client, timeout= frame.ACK_WAIT_TIME/1000)
         if sense.seq_no == -2:
@@ -43,10 +44,17 @@ def carrier_sense():
 def sender():
 
     next_seq_no = 0
+    k = 0
+
     for char in message:
 
         # Carrier Sense
         _ = carrier_sense()
+
+        # Contention time
+        con_time = random.randint(0, (2**k) - 1)
+        logger.debug("[PASS]: Channel Free. Waiting for contention time: %d seconds", con_time)        
+        time.sleep(con_time)
 
         # Create frame
         pkt = frame.Frame(next_seq_no, ftype= frame.Frame.TYPE_DATA, data=char)
@@ -64,16 +72,30 @@ def sender():
             or ack.ftype != frame.Frame.TYPE_ACK
             or ack.seq_no != next_seq_no
         ):
+            if k < MAK_K:
+                k = k + 1
+            else:
+                logger.critical("[ERR]: Max retries reached. Aborting Transmission.")
+                return 0
+
             if ack is None:
                 logger.error("[TIMEOUT]: Sending %s again" % pkt)
             elif ack.is_corrupt():
                 logger.error("[ERR]: ACK not received.")
                 logger.info("Sending %s again." % pkt)
             
+            
+            _ = carrier_sense()
+            con_time = random.randint(0, (2**k) - 1)
+            logger.debug("[PASS]: Channel Free. Waiting for contention time: %d seconds", con_time)        
+            time.sleep(con_time)
+            
             frame.send_frame(client, pkt)
             ack = frame.recv_frame(client, timeout=frame.ACK_WAIT_TIME/1000)
+        
         logger.debug("[ACK]: Received %s" % ack)
         time.sleep(1)
+        k = 0
 
     # EOF
     pkt = frame.Frame(-1, data=None)

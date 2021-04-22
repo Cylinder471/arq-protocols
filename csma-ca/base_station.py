@@ -26,13 +26,13 @@ def receiver():
                 if not pkt.is_channel_busy():
                     # BUSY
                     frame.send_frame(sock, frame.Frame(-2, ftype=frame.Frame.TYPE_DATA))
-                    logger.info("[STATUS] : Channel Busy")
+                    logger.notice("[STATUS] : Channel Busy")
                 # FREE
                 else:
                     frame.send_frame(sock, frame.Frame(-3, ftype=frame.Frame.TYPE_DATA))
-                    logger.info("[STATUS] : Channel Free")
+                    logger.notice("[STATUS] : Channel Free")
                 continue
-
+            
             # EOF
             if pkt.seq_no == -1:
                 logger.debug("[RECV]: Received EOF")
