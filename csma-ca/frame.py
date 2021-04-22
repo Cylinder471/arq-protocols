@@ -11,6 +11,7 @@ CHANNEL_BUSY_PROB = 0.3
 # Timeout in ms
 ACK_WAIT_TIME = 8000
 
+
 class Frame:
 
     # Type of transmitted data
@@ -23,7 +24,7 @@ class Frame:
         self.ftype = ftype
         self.channel_busy = 0
         self.corrupt = 0
-       
+
     def is_channel_busy(self):
         if not self.channel_busy:
             self.channel_busy = random.random()
@@ -33,8 +34,6 @@ class Frame:
         if not self.corrupt:
             self.corrupt = random.random()
         return self.corrupt < LOSS_PROB
-    
-
 
     # frame string description
     def __str__(self):
@@ -46,6 +45,7 @@ class Frame:
 
 
 ## Helper functions
+
 
 def read_k_bytes(sock, remaining=0):
     """
@@ -66,6 +66,7 @@ def read_k_bytes(sock, remaining=0):
         ret += d
         remaining -= len(d)
     return ret
+
 
 def send_frame(sock, frm):
     """
