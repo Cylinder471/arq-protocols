@@ -18,6 +18,5 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: python-format-action
-        uses: tdeboissiere/python-format-action@1.1.2
+      - name: Black Code Formatter
+        uses: lgeiger/black-action@v1.0.1
