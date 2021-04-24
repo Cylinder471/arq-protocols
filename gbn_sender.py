@@ -1,18 +1,16 @@
+import logging
+import os
 import socket
 import sys
-import os
-from threading import *
-
-from time import sleep
 from collections import deque
+from threading import *
+from time import sleep
 
-import logging
-import verboselogs
 import coloredlogs
+import verboselogs
 
 import packet
 from timer import Timer
-
 
 # Configure logging
 verboselogs.install()

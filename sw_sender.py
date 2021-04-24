@@ -1,10 +1,10 @@
+import logging
 import socket
 import sys
 import time
 
-import logging
-import verboselogs
 import coloredlogs
+import verboselogs
 
 import packet
 
@@ -27,8 +27,8 @@ def sender():
         # Send packet
         packet.send_packet(client, pkt)
         next_seq_no = (next_seq_no + 1) % 2
-        ack = packet.recv_packet(client, timeout=packet.ACK_WAIT_TIME/1000)
-        
+        ack = packet.recv_packet(client, timeout=packet.ACK_WAIT_TIME / 1000)
+
         # Check if packet is corrupt or not the expected one
         while (
             ack is None
@@ -41,9 +41,9 @@ def sender():
             elif ack.is_corrupt():
                 logger.error("[ERR]: ACK not received.")
                 logger.info("Sending %s again." % pkt)
-            
+
             packet.send_packet(client, pkt)
-            ack = packet.recv_packet(client, timeout=packet.ACK_WAIT_TIME/1000)
+            ack = packet.recv_packet(client, timeout=packet.ACK_WAIT_TIME / 1000)
         logger.debug("[ACK]: Received %s" % ack)
         time.sleep(1)
 
@@ -51,7 +51,6 @@ def sender():
     pkt = packet.Packet(-1, data=None)
     packet.send_packet(client, pkt)
     logger.success("[SEND]: Transfer complete. Sending EOF")
-
 
 
 if __name__ == "__main__":

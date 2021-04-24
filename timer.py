@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from time import time
 from math import floor
+from time import time
 
 
 class Timer:

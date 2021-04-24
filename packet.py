@@ -1,6 +1,6 @@
-import socket
 import pickle
 import random
+import socket
 
 # Bit available for seq no in frame header
 SEQ_NO_BIT_WIDTH = 3
@@ -19,6 +19,7 @@ LOSS_PROB = 0.1
 
 # Timeout in ms
 ACK_WAIT_TIME = 8000
+
 
 class Packet:
 

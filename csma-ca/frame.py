@@ -1,6 +1,6 @@
-import socket
 import pickle
 import random
+import socket
 
 # Corruption probability
 LOSS_PROB = 0.1

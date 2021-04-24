@@ -1,13 +1,14 @@
 #!/usr/bin/python
+import logging
+import os
 import socket
 import sys
-import os
-import logging
 from time import sleep
 
-import packet
-import verboselogs
 import coloredlogs
+import verboselogs
+
+import packet
 
 # Configure logging
 verboselogs.install()
@@ -105,7 +106,9 @@ def receiver():
 if __name__ == "__main__":
     # Socket for listening for incoming connections
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.connect((socket.gethostname(), 3300 if len(sys.argv) <= 1 else int(sys.argv[1])))
+    sock.connect(
+        (socket.gethostname(), 3300 if len(sys.argv) <= 1 else int(sys.argv[1]))
+    )
     logger.debug("Connected to server.")
 
     # Set vars if given (Default set in packet module)

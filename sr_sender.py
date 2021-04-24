@@ -1,17 +1,16 @@
 #!/usr/bin/python
+import logging
+import os
+import pickle
 import socket
 import sys
-import os
-import logging
-import pickle
 from threading import Lock
 from time import sleep
 
-import packet
-
-import verboselogs
 import coloredlogs
+import verboselogs
 
+import packet
 
 # Configure logging
 verboselogs.install()
@@ -40,6 +39,7 @@ client_sync_lock = Lock()
 # The timer class with GBN can't be used here as each packet has its own timer in seperate thread
 # So it is better to use the inbuilt Timer in threading module
 from threading import Timer
+
 
 # Start the timer for packet with given seqno
 def start_timer(index):

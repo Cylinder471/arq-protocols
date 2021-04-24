@@ -1,12 +1,12 @@
+import logging
+import random
 import socket
 import sys
 import time
-import random
-import logging
-import verboselogs
-import coloredlogs
 
+import coloredlogs
 import frame
+import verboselogs
 
 # Configure logging
 verboselogs.install()
