@@ -34,6 +34,8 @@ def receiver():
                 packet.send_packet(
                     sock, packet.Packet(exp_seq_no, ptype=packet.Packet.TYPE_ACK)
                 )
+
+            
             else:
                 if not pkt.is_corrupt():
                     exp_seq_no = (exp_seq_no + 1) % 2
@@ -46,6 +48,7 @@ def receiver():
 
                 else:
                     # We simply drop the packet. The timer at the sender will timeout and send the packet again.
+                    
                     logger.error("[ERR]: %s is corrupt. Dropping." % pkt)
         except ConnectionResetError:
             break

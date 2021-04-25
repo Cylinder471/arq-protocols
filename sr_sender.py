@@ -49,7 +49,7 @@ def start_timer(index):
 
 def stop_timer(index):
     if timers[index] is None:
-        raise Error("Timer %d not running!" % index)
+        raise Exception("Timer %d not running!" % index)
     if timers[index].is_alive():
         timers[index].cancel()
     timers[index] = None
@@ -132,7 +132,7 @@ def handle_recvd_pkt(pkt_recvd):
 
     # Error Handling
     else:
-        raise Error("Unknown packet type - %s", str(pkt_recv.ptype))
+        raise Exception("Unknown packet type - %s", str(pkt_recvd.ptype))
 
 
 def sender():
@@ -186,7 +186,7 @@ def sender():
                 logger.success("[SEND]: Transfer complete. Sending EOF")
                 break
 
-        except KeyboardInterrupt as e:
+        except KeyboardInterrupt:
             break
 
     client.close()

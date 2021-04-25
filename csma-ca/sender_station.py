@@ -57,7 +57,7 @@ def sender_station():
         # Contention time
         con_time = random.randint(0, (2 ** k) - 1)
         logger.debug(
-            "[PASS]: Channel Free. Waiting for contention time: %d slots", con_time
+            "[PASS]: Channel Free. Waiting for contention time: {} slots, K = {}".format(con_time,k)
         )
         time.sleep(con_time)
 
@@ -92,8 +92,8 @@ def sender_station():
             _ = carrier_sense()
             con_time = random.randint(0, (2 ** k) - 1)
             logger.debug(
-                "[PASS]: Channel Free. Waiting for contention time: %d slots", con_time
-            )
+            "[PASS]: Channel Free. Waiting for contention time: {} slots, K = {}".format(con_time,k)
+        )
             time.sleep(con_time)
 
             frame.send_frame(client, pkt)
