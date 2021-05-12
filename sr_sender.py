@@ -212,7 +212,8 @@ if __name__ == "__main__":
         msglen = len(message)
 
     logger.verbose(
-        "SEQ_NO_BIT_WIDTH: {0}, LOSS_PROB: {1}, SRP_WINDOW_SIZE: {2}, MAX_SEQ_NO: {3}, ACK_WAIT_TIME: {4}, MESSAGE: {5}".format(
+        "SEQ_NO_BIT_WIDTH: {0}, LOSS_PROB: {1}, SRP_WINDOW_SIZE: {2}, MAX_SEQ_NO: {3},"
+        " ACK_WAIT_TIME: {4}, MESSAGE: {5}".format(
             packet.SEQ_NO_BIT_WIDTH,
             packet.LOSS_PROB,
             packet.SRP_WINDOW_SIZE,
