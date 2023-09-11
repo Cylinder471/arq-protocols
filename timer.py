@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from math import floor
+from math import floor#Округление в низжую сторону
 from time import time
 
 
@@ -28,4 +28,5 @@ class Timer:
 
     @staticmethod
     def current_time_in_millis():
+        #Текущее время в милисекундах
         return int(floor(time() * 1000))

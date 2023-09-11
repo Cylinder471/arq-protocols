@@ -2,19 +2,19 @@ import pickle
 import random
 import socket
 
-# Bit available for seq no in frame header
+# Bit available for seq no in frame header(Бит, доступный для порядкового номера в заголовке кадра)
 SEQ_NO_BIT_WIDTH = 3
 
-# Go back N window size
+# Go back N window size(размер окна)
 GBN_WINDOW_SIZE = (2 ** SEQ_NO_BIT_WIDTH) - 1
 
-# Selective Repeat window size
+# Selective Repeat window size(размер окна)
 SRP_WINDOW_SIZE = 2 ** (SEQ_NO_BIT_WIDTH - 1)
 
-# Maximum possible seq no
+# Maximum possible seq no(размер окна)
 MAX_SEQ_NO = GBN_WINDOW_SIZE
 
-# Corruption probability
+# Corruption probability(Вероятность ошибки)
 LOSS_PROB = 0.1
 
 # Timeout in ms
@@ -34,6 +34,7 @@ class Packet:
         self.corrupt = 0
 
     def is_corrupt(self):
+        # Если True, то ошибка больше случайного числа, если False, то ошибка меньше случайного числа
         if not self.corrupt:
             self.corrupt = random.random()
         return self.corrupt < LOSS_PROB
